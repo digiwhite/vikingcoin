@@ -1,0 +1,34 @@
+src/*.exe
+src/vikingcoin
+src/vikingcoind
+src/test_vikingcoin
+.*.swp
+*.*~*
+*.bak
+*.rej
+*.orig
+*.o
+*.patch
+.vikingcoin
+
+# Compilation and Qt preprocessor part
+*.qm
+Makefile
+vikingcoin-qt
+vikingCoin-Qt.app
+
+# Unit-tests
+Makefile.test
+vikingcoin-qt_test
+
+# Resources cpp
+qrc_*.cpp
+
+# Qt creator
+*.pro.user
+
+# Mac specific
+.DS_Store
+build
+
+!src/leveldb-*/Makefile
