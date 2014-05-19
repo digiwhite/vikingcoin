@@ -10,6 +10,7 @@ src/test_vikingcoin
 *.o
 *.patch
 .vikingcoin
+Thumbs.db
 
 # Compilation and Qt preprocessor part
 *.qm
