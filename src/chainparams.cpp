@@ -72,8 +72,8 @@ public:
         
   
 
-        base58Prefixes[PUBKEY_ADDRESS] = 27;
-        base58Prefixes[SCRIPT_ADDRESS] = 27;
+        base58Prefixes[PUBKEY_ADDRESS] = 28;
+        base58Prefixes[SCRIPT_ADDRESS] = 28;
         base58Prefixes[SECRET_KEY] = 86;
 
         // Convert the pnSeeds array into usable address objects.
