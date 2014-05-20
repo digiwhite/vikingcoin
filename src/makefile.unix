@@ -147,10 +147,10 @@ OBJS= \
     obj/chainparams.o
 
 
-all: Vikingd
+all: vikingcoind
 
-test check: test_Viking FORCE
-	./test_Viking
+test check: test_vikingcoind FORCE
+	./test_vikingcoind
 
 #
 # LevelDB support
@@ -178,7 +178,7 @@ obj/%.o: %.cpp
 	      -e '/^$$/ d' -e 's/$$/ :/' < $(@:%.o=%.d) >> $(@:%.o=%.P); \
 	  rm -f $(@:%.o=%.d)
 
-Vikingd: $(OBJS:obj/%=obj/%)
+vikingcoind: $(OBJS:obj/%=obj/%)
 	$(LINK) $(xCXXFLAGS) -o $@ $^ $(xLDFLAGS) $(LIBS)
 
 TESTOBJS := $(patsubst test/%.cpp,obj-test/%.o,$(wildcard test/*.cpp))
@@ -190,11 +190,11 @@ obj-test/%.o: test/%.cpp
 	      -e '/^$$/ d' -e 's/$$/ :/' < $(@:%.o=%.d) >> $(@:%.o=%.P); \
 	  rm -f $(@:%.o=%.d)
 
-test_Viking: $(TESTOBJS) $(filter-out obj/init.o obj/Vikingd.o,$(OBJS:obj/%=obj/%))
+test_vikingcoind: $(TESTOBJS) $(filter-out obj/init.o obj/vikingcoind.o,$(OBJS:obj/%=obj/%))
 	$(LINK) $(xCXXFLAGS) -o $@ $(LIBPATHS) $^ $(TESTLIBS) $(xLDFLAGS) $(LIBS)
 
 clean:
-	-rm -f Vikingd test_Viking
+	-rm -f Vikingd vikingcoind test_vikingcoind
 	-rm -f obj/*.o
 	-rm -f obj-test/*.o
 	-rm -f obj/*.P
