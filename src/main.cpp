@@ -51,9 +51,9 @@ unsigned int nCoinCacheSize = 5000;
 bool fHaveGUI = false;
 
 /** Fees smaller than this (in satoshi) are considered zero fee (for transaction creation) */
-int64 CTransaction::nMinTxFee = 1000;  // Override with -mintxfee
+int64 CTransaction::nMinTxFee = 10000000;  // Override with -mintxfee
 /** Fees smaller than this (in satoshi) are considered zero fee (for relaying) */
-int64 CTransaction::nMinRelayTxFee = 1000;
+int64 CTransaction::nMinRelayTxFee = 10000000;
 
 CMedianFilter<int> cPeerBlockCounts(8, 0); // Amount of blocks that other nodes claim to have
 
@@ -1251,11 +1251,11 @@ static const int64 nMinSubsidy = 0.00001066 * COIN;
 int64 static GetBlockValue(int nHeight, int64 nFees)
 {
     int64 nSubsidy = nStartSubsidy;
-    if(nHeight < 120) {nSubsidy = 0.05 * COIN;} // minimal rewards to prevent instamine
+    if(nHeight < 1000) {nSubsidy = 0.10 * COIN;} // minimal rewards to prevent instamine
 
-		if(nHeight < 840)	// First day x 2
+		if(nHeight < 2000)	
 		{
-		nSubsidy *= 2;
+		nSubsidy *= 10;
 		}
 
     // Mining phase: Subsidy is cut in half every SubsidyHalvingInterval
@@ -1274,9 +1274,10 @@ int64 static GetBlockValue(int nHeight, int64 nFees)
 
 
 
-static const int64 nTargetTimespan = 60 * 3;	// 60 minutes
-static const int64 nTargetSpacing = 120;	// 120 seconds
-static const int64 nInterval = nTargetTimespan / nTargetSpacing;	// 3.5 blocks difficulty retarget
+static const int64 nTargetTimespan = 3.5 * 60; 
+static const int64 nTargetSpacing = 10 * 60;
+static const int64 nInterval = nTargetSpacing / nTargetTimespan;
+
 /////////////
 // minimum amount of work that could possibly be required nTime after
 // minimum work required was nBase
@@ -1286,7 +1287,7 @@ unsigned int ComputeMinWork(unsigned int nBase, int64 nTime)
     const CBigNum &bnLimit = Params().ProofOfWorkLimit();
     // Testnet has min-difficulty blocks
     // after nTargetSpacing*2 time between blocks:
-    if (TestNet() && nTime > nTargetSpacing*2)
+    if (TestNet() && nTime > nTargetSpacing*3.5)
         return bnLimit.GetCompact();
 
     CBigNum bnResult;
@@ -1296,7 +1297,7 @@ unsigned int ComputeMinWork(unsigned int nBase, int64 nTime)
         // Maximum 300% adjustment...
         bnResult *= 3;
         // ... in best-case exactly 4-times-normal target time
-        nTime -= nTargetTimespan*2;
+        nTime -= nTargetTimespan*3.5;
     }
     
     if (bnResult > bnLimit)
@@ -1432,7 +1433,7 @@ unsigned int static KimotoGravityWell(const CBlockIndex* pindexLast, const CBloc
                 PastRateAdjustmentRatio = double(PastRateTargetSeconds) / double(PastRateActualSeconds);
                 }
                 
-                EventHorizonDeviation = 1 + (0.7084 * pow((double(PastBlocksMass)/double(144)), -1.228));
+                EventHorizonDeviation = 1 + (0.7084 * pow((double(PastBlocksMass)/double(28.2)), -1.228));
                 EventHorizonDeviationFast = EventHorizonDeviation;
                 EventHorizonDeviationSlow = 1 / EventHorizonDeviation;
                 
@@ -1485,7 +1486,7 @@ unsigned int static GetNextWorkRequired(const CBlockIndex* pindexLast, const CBl
                 if (pindexLast->nHeight+1 >= 120) { DiffMode = 2; } // First 8 days
         }
         else {
-         if (pindexLast->nHeight+1 >= 5880) { DiffMode = 2; } // Kimoto after 8 days
+         if (pindexLast->nHeight+1 >= 1000) { DiffMode = 2; } // Kimoto after 8 days
         }
         
         if (DiffMode == 1) { return GetNextWorkRequired_V1(pindexLast, pblock); } // Legacy diff mode
