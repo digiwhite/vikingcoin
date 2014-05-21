@@ -13,7 +13,7 @@ First 1,000 blocks are 0.10 Viking block reward.
 
 Halving every 100,000 blocks.
 
-Minimal Blockreward of 1 CryptoEagle after halving ceases.
+Minimal Blockreward of 0.00001066 Viking after halving ceases.
 
 First 1,200 blocks, 10x block reward for early adopters.
 
