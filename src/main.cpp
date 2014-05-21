@@ -1274,7 +1274,7 @@ int64 static GetBlockValue(int nHeight, int64 nFees)
 
 
 
-static const int64 nTargetTimespan = 3.5 * 60; 
+static const int64 nTargetTimespan = 1.5 * 60; 
 static const int64 nTargetSpacing = 10 * 60;
 static const int64 nInterval = nTargetSpacing / nTargetTimespan;
 
@@ -1287,7 +1287,7 @@ unsigned int ComputeMinWork(unsigned int nBase, int64 nTime)
     const CBigNum &bnLimit = Params().ProofOfWorkLimit();
     // Testnet has min-difficulty blocks
     // after nTargetSpacing*2 time between blocks:
-    if (TestNet() && nTime > nTargetSpacing*3.5)
+    if (TestNet() && nTime > nTargetSpacing*1.5)
         return bnLimit.GetCompact();
 
     CBigNum bnResult;
@@ -1297,7 +1297,7 @@ unsigned int ComputeMinWork(unsigned int nBase, int64 nTime)
         // Maximum 300% adjustment...
         bnResult *= 3;
         // ... in best-case exactly 4-times-normal target time
-        nTime -= nTargetTimespan*3.5;
+        nTime -= nTargetTimespan*1.5;
     }
     
     if (bnResult > bnLimit)

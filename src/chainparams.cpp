@@ -24,14 +24,14 @@ class CMainParams : public CChainParams {
 public:
     CMainParams() {
         // The message start string is designed to be unlikely to occur in normal data.
-        pchMessageStart[0] = 0x56;
-        pchMessageStart[1] = 0x43;
+        pchMessageStart[0] = 0x55;
+        pchMessageStart[1] = 0x42;
         pchMessageStart[2] = 0x4B;
-        pchMessageStart[3] = 0x49;
+        pchMessageStart[3] = 0x45;
         nDefaultPort = 11066;
         nRPCPort = 11067;
         bnProofOfWorkLimit = CBigNum(~uint256(0) >> 20);
-        nSubsidyHalvingInterval = 50000;
+        nSubsidyHalvingInterval = 100000;
 
         // Build the genesis block. Note that the output of the genesis coinbase cannot
         // be spent as it did not originally exist in the database.
@@ -47,15 +47,15 @@ public:
         genesis.hashPrevBlock = 0;
         genesis.hashMerkleRoot = genesis.BuildMerkleTree();
         genesis.nVersion = 1;
-        genesis.nTime    = 1400289566; //nTime
+        genesis.nTime    = 1400630400; //nTime
         genesis.nBits    = 0x1e0fffff;
-        genesis.nNonce   = 1401282;
+        genesis.nNonce   = 0;
         
         hashGenesisBlock = genesis.GetHash();
-        // while (hashGenesisBlock > bnProofOfWorkLimit.getuint256()){
-        //     if (++genesis.nNonce==0) break;
-        //     hashGenesisBlock = genesis.GetHash();
-        //}
+         while (hashGenesisBlock > bnProofOfWorkLimit.getuint256()){
+             if (++genesis.nNonce==0) break;
+             hashGenesisBlock = genesis.GetHash();
+        }
 
 
         printf("%s\n", hashGenesisBlock.ToString().c_str());
@@ -64,16 +64,16 @@ public:
         genesis.print();
         
         
-        assert(hashGenesisBlock == uint256("0x0000029b0cb867033d49faf35edcc7dcfced54144a35c0f514e597a716081769"));
-        assert(genesis.hashMerkleRoot == uint256("0xb8b26c88ea01ea6cbbd9fd39158f1e6cae130cc2cd5950b78727d83aa71c056d"));
+        //assert(hashGenesisBlock == uint256("0x0000029b0cb867033d49faf35edcc7dcfced54144a35c0f514e597a716081769"));
+        //assert(genesis.hashMerkleRoot == uint256("0xb8b26c88ea01ea6cbbd9fd39158f1e6cae130cc2cd5950b78727d83aa71c056d"));
 
         //vSeeds.push_back(CDNSSeedData("198.46.134.15", "198.46.134.15"));
         
         
   
 
-        base58Prefixes[PUBKEY_ADDRESS] = 28;
-        base58Prefixes[SCRIPT_ADDRESS] = 28;
+        base58Prefixes[PUBKEY_ADDRESS] = 70;
+        base58Prefixes[SCRIPT_ADDRESS] = 132;
         base58Prefixes[SECRET_KEY] = 86;
 
         // Convert the pnSeeds array into usable address objects.
@@ -120,21 +120,23 @@ public:
         strDataDir = "testnet";
 
         // Modify the testnet genesis block so the timestamp is valid for a later start.
-        genesis.nTime = 1393768800;
-        genesis.nNonce = 1064511;
+        genesis.nTime = 1400630400;
+        genesis.nNonce = 0;
         
         
         //// debug print
         hashGenesisBlock = genesis.GetHash();
-        //  while (hashGenesisBlock > bnProofOfWorkLimit.getuint256()){
-        //   if (++genesis.nNonce==0) break;
-        //  hashGenesisBlock = genesis.GetHash();
-        // }
+          while (hashGenesisBlock > bnProofOfWorkLimit.getuint256()){
+           if (++genesis.nNonce==0) break;
+          hashGenesisBlock = genesis.GetHash();
+         }
 
         printf("%s\n", hashGenesisBlock.ToString().c_str());
         printf("%s\n", genesis.hashMerkleRoot.ToString().c_str());
         genesis.print();
 
+		// assert(hashGenesisBlock == uint256("0x13d8d31dde96874006da503dd2b63fa68c698dc823334359e417aa3a92f80433"));
+		
         vFixedSeeds.clear();
         vSeeds.clear();
         // vSeeds.push_back(CDNSSeedData("Viking.test", "test.Viking.org"));
