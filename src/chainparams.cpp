@@ -49,13 +49,13 @@ public:
         genesis.nVersion = 1;
         genesis.nTime    = 1400630400; //nTime
         genesis.nBits    = 0x1e0fffff;
-        genesis.nNonce   = 0;
+        genesis.nNonce   = 2016973;
         
         hashGenesisBlock = genesis.GetHash();
-         while (hashGenesisBlock > bnProofOfWorkLimit.getuint256()){
-             if (++genesis.nNonce==0) break;
-             hashGenesisBlock = genesis.GetHash();
-        }
+        // while (hashGenesisBlock > bnProofOfWorkLimit.getuint256()){
+        //     if (++genesis.nNonce==0) break;
+        //     hashGenesisBlock = genesis.GetHash();
+        //}
 
 
         printf("%s\n", hashGenesisBlock.ToString().c_str());
@@ -64,10 +64,10 @@ public:
         genesis.print();
         
         
-        //assert(hashGenesisBlock == uint256("0x0000029b0cb867033d49faf35edcc7dcfced54144a35c0f514e597a716081769"));
-        //assert(genesis.hashMerkleRoot == uint256("0xb8b26c88ea01ea6cbbd9fd39158f1e6cae130cc2cd5950b78727d83aa71c056d"));
+        assert(hashGenesisBlock == uint256("0x00000c07c30a4f74683e64ed156668e3f8d2e71bb4efcdcc44c248708d1cabf2"));
+        assert(genesis.hashMerkleRoot == uint256("0xb8b26c88ea01ea6cbbd9fd39158f1e6cae130cc2cd5950b78727d83aa71c056d"));
 
-        //vSeeds.push_back(CDNSSeedData("198.46.134.15", "198.46.134.15"));
+        vSeeds.push_back(CDNSSeedData("198.46.134.15", "192.3.10.93"));
         
         
   
@@ -126,17 +126,15 @@ public:
         
         //// debug print
         hashGenesisBlock = genesis.GetHash();
-          while (hashGenesisBlock > bnProofOfWorkLimit.getuint256()){
-           if (++genesis.nNonce==0) break;
-          hashGenesisBlock = genesis.GetHash();
-         }
+         // while (hashGenesisBlock > bnProofOfWorkLimit.getuint256()){
+         //  if (++genesis.nNonce==0) break;
+         // hashGenesisBlock = genesis.GetHash();
+         //}
 
         printf("%s\n", hashGenesisBlock.ToString().c_str());
         printf("%s\n", genesis.hashMerkleRoot.ToString().c_str());
         genesis.print();
 
-		// assert(hashGenesisBlock == uint256("0x13d8d31dde96874006da503dd2b63fa68c698dc823334359e417aa3a92f80433"));
-		
         vFixedSeeds.clear();
         vSeeds.clear();
         // vSeeds.push_back(CDNSSeedData("Viking.test", "test.Viking.org"));
