@@ -1,7 +1,7 @@
 Viking Coin
 ========
 
-Viking Coin [Vik]
+Viking Coin [VIK]
 
 SHA256 Proof of Work
 
